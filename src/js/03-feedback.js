@@ -1,9 +1,10 @@
 import throttle from 'lodash.throttle';
 
 const STORAGE_KEY_EMAIL = 'email';
-const STOGALE_KEY_MESSAGE = 'message';
+const STORAGE_KEY_MESSAGE = 'message';
 
 const formEl = document.querySelector('form.feedback-form');
+
 
 setInitialValuesFromStorage()
 formEl.addEventListener('input', throttle(onInput,500));
@@ -19,8 +20,8 @@ function onInput(e) {
 
 function setInitialValuesFromStorage() {
     const savedEmail = localStorage.getItem(STORAGE_KEY_EMAIL);
-    const savedMessage = localStorage.getItem(STOGALE_KEY_MESSAGE);
-
+    const savedMessage = localStorage.getItem(STORAGE_KEY_MESSAGE);
+    
     formEl.querySelector('[name="email"]').value = savedEmail;
     formEl.querySelector('[name="message"]').value = savedMessage;
 }

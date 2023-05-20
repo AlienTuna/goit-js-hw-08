@@ -1,12 +1,11 @@
 import throttle from 'lodash.throttle';
-
-const STORAGE_KEY_EMAIL = 'email';
-const STORAGE_KEY_MESSAGE = 'message';
+const STORAGE_KEY = 'feedback-form-state'
 
 const formEl = document.querySelector('form.feedback-form');
+const storedValues = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
 
+setInitialValuesFromStorage(storedValues);
 
-setInitialValuesFromStorage()
 formEl.addEventListener('input', throttle(onInput,500));
 formEl.addEventListener('submit', onSubmit);
 
@@ -15,15 +14,13 @@ formEl.addEventListener('submit', onSubmit);
 function onInput(e) {
     const field = e.target.name;
     const value = e.target.value;
-    localStorage.setItem(field, value);  
+    storedValues[field] = value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(storedValues));  
 }
 
-function setInitialValuesFromStorage() {
-    const savedEmail = localStorage.getItem(STORAGE_KEY_EMAIL);
-    const savedMessage = localStorage.getItem(STORAGE_KEY_MESSAGE);
-    
-    formEl.querySelector('[name="email"]').value = savedEmail;
-    formEl.querySelector('[name="message"]').value = savedMessage;
+function setInitialValuesFromStorage(current) {    
+    if (current.email) { formEl.querySelector('[name="email"]').value = current.email;};
+    if (current.message) {formEl.querySelector('[name="message"]').value = current.message};
 }
 
 function onSubmit(e) {

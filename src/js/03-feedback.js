@@ -1,8 +1,8 @@
 import throttle from 'lodash.throttle';
-const STORAGE_KEY = 'feedback-form-state'
+const STORAGE_KEY_FEEDBACK_FORM = 'feedback-form-state'
 
 const formEl = document.querySelector('form.feedback-form');
-const storedValues = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+const storedValues = JSON.parse(localStorage.getItem(STORAGE_KEY_FEEDBACK_FORM)) || {};
 
 setInitialValuesFromStorage(storedValues);
 
@@ -15,7 +15,7 @@ function onInput(e) {
     const field = e.target.name;
     const value = e.target.value;
     storedValues[field] = value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(storedValues));  
+    localStorage.setItem(STORAGE_KEY_FEEDBACK_FORM, JSON.stringify(storedValues));  
 }
 
 function setInitialValuesFromStorage(current) {    
